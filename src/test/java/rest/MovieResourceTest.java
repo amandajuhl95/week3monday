@@ -35,7 +35,7 @@ public class MovieResourceTest {
     static final URI BASE_URI = UriBuilder.fromUri(SERVER_URL).port(SERVER_PORT).build();
     private static HttpServer httpServer;
     private static EntityManagerFactory emf;
-    
+
     private Movie m1;
     private Movie m2;
     private Movie m3;
@@ -73,12 +73,12 @@ public class MovieResourceTest {
     @BeforeEach
     public void setUp() {
         EntityManager em = emf.createEntityManager();
-        
-        m1 = new Movie("Titanic", 1998, "James Cameron");
-        m2 = new Movie("The Nun", 2018, "Corin Hardy");
-        m3 = new Movie("Hercules", 1997, "Brett Ratner");
-        m4 = new Movie("Mary Poppins", 1965, "Robert Stevenson");
-        
+
+        m1 = new Movie("Titanic", 1998, "James Cameron", "3 hr 15 m");
+        m2 = new Movie("The Nun", 2018, "Corin Hardy", "1 hr 36 m");
+        m3 = new Movie("Hercules", 1997, "Brett Ratner", "1 hr 33 m");
+        m4 = new Movie("Mary Poppins", 1965, "Robert Stevenson", "2 hr 20 m");
+
         try {
             em.getTransaction().begin();
             em.createNamedQuery("Movie.deleteAllRows").executeUpdate();
@@ -106,10 +106,10 @@ public class MovieResourceTest {
                 .get("/movie/{id}", m1.getId()).then()
                 .assertThat()
                 .statusCode(HttpStatus.OK_200.getStatusCode())
-                .body("name", equalTo("Titanic"), "release_year", equalTo(1998));
+                .body("name", equalTo("Titanic"), "release_year", equalTo(1998), "director", equalTo("James Cameron"));
     }
-    
-        //This test assumes the database contains two rows
+
+    //This test assumes the database contains two rows
     @Test
     public void testGetAllMovies() throws Exception {
         given()
@@ -117,7 +117,7 @@ public class MovieResourceTest {
                 .get("/movie/all").then()
                 .assertThat()
                 .statusCode(HttpStatus.OK_200.getStatusCode())
-                .body("name",hasItems("Titanic", "The Nun", "Hercules", "Mary Poppins"));
+                .body("name", hasItems("Titanic", "The Nun", "Hercules", "Mary Poppins"));
     }
 
     @Test
@@ -129,7 +129,7 @@ public class MovieResourceTest {
                 .statusCode(HttpStatus.OK_200.getStatusCode())
                 .body("count", equalTo(4));
     }
-    
+
     //This test assumes the database contains two rows
     @Test
     public void testGetMovieByName() throws Exception {
@@ -138,6 +138,6 @@ public class MovieResourceTest {
                 .get("/movie/name/{name}", m3.getName()).then()
                 .assertThat()
                 .statusCode(HttpStatus.OK_200.getStatusCode())
-                .body("name", hasItems("Hercules"), "release_year", hasItems(1997));
+                .body("name", hasItems("Hercules"), "release_year", hasItems(1997), "director", hasItems("Brett Ratner"));
     }
 }

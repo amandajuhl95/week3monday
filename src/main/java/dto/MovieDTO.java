@@ -16,12 +16,14 @@ public class MovieDTO {
     private Long movie_id;
     private String name;
     private int release_year;
+    private String director;
 
     public MovieDTO(Movie movie) {
 
         this.movie_id = movie.getId();
         this.name = movie.getName();
         this.release_year = movie.getRelease_year();
+        this.director = movie.getDirector();
 
     }
 
@@ -38,6 +40,10 @@ public class MovieDTO {
 
     public int getRelease_year() {
         return release_year;
+    }
+
+    public String getDirector() {
+        return director;
     }
 
 }

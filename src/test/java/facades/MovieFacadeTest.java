@@ -26,7 +26,7 @@ public class MovieFacadeTest {
     private Movie m2;
     private Movie m3;
     private Movie m4;
-    
+
     public MovieFacadeTest() {
     }
 
@@ -38,7 +38,7 @@ public class MovieFacadeTest {
 
     @AfterAll
     public static void tearDownClass() {
-        
+
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
@@ -54,10 +54,10 @@ public class MovieFacadeTest {
     @BeforeEach
     public void setUp() {
         EntityManager em = emf.createEntityManager();
-        m1 = new Movie("Titanic", 1998, "James Cameron");
-        m2 = new Movie("The Nun", 2018, "Corin Hardy");
-        m3 = new Movie("Hercules", 1997, "Brett Ratner");
-        m4 = new Movie("Mary Poppins", 1965, "Robert Stevenson");
+        m1 = new Movie("Titanic", 1998, "James Cameron", "3 hr 15 m");
+        m2 = new Movie("The Nun", 2018, "Corin Hardy", "1 hr 36 m");
+        m3 = new Movie("Hercules", 1997, "Brett Ratner", "1 hr 33 m");
+        m4 = new Movie("Mary Poppins", 1965, "Robert Stevenson", "2 hr 20 m");
         try {
             em.getTransaction().begin();
             em.createNamedQuery("Movie.deleteAllRows").executeUpdate();
@@ -87,7 +87,7 @@ public class MovieFacadeTest {
         assertEquals(1, movies.size());
         assertEquals(2018, movies.get(0).getRelease_year());
         assertEquals("Corin Hardy", movies.get(0).getDirector());
-        
+        assertEquals("1 hr 36 m", movies.get(0).getDuration());
     }
 
     /**
@@ -95,14 +95,14 @@ public class MovieFacadeTest {
      */
     @Test
     public void testAddMovie() {
-       
+
         int moviesbefore = facade.getAllMovies().size();
-        Movie movie = new Movie("Saving Private Ryan", 1998, "Steven Spielberg");
+        Movie movie = new Movie("Saving Private Ryan", 1998, "Steven Spielberg", "2 hr 50 m");
         facade.addMovie(movie);
         int moviesafter = facade.getAllMovies().size();
-        
+
         assertTrue(moviesbefore < moviesafter);
-        
+
     }
 
     /**
@@ -114,27 +114,28 @@ public class MovieFacadeTest {
         assertFalse(movies.isEmpty());
         assertEquals(4, movies.size());
     }
-    
-      /**
+
+    /**
      * Test of MovieCount method, of class MovieFacade.
      */
     @Test
     public void testGetMovieCount() {
-        
+
         long count = facade.getMovieCount();
         assertEquals(4, count);
     }
-    
-         /**
+
+    /**
      * Test of getMovieById method, of class MovieFacade.
      */
     @Test
     public void testGetMovie() {
         Movie movie = facade.getMovie(m1.getId());
-        
+
         assertEquals("Titanic", movie.getName());
         assertEquals(1998, movie.getRelease_year());
         assertEquals("James Cameron", movie.getDirector());
+        assertEquals("3 hr 15 m", movie.getDuration());
     }
 
 }

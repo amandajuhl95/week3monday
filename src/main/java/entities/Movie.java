@@ -18,14 +18,24 @@ public class Movie implements Serializable {
     private String name;
     private int release_year;
     private String director;
+    private String duration;
 
-    public Movie(String name, int release_year, String director) {
+    public Movie(String name, int release_year, String director, String duration) {
         this.name = name;
         this.release_year = release_year;
         this.director = director;
+        this.duration = duration;
     }
-    
+
     public Movie() {
+    }
+
+    public String getDuration() {
+        return duration;
+    }
+
+    public void setDuration(String duration) {
+        this.duration = duration;
     }
 
     public String getName() {
