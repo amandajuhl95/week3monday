@@ -24,7 +24,6 @@ public class MovieDTO {
         this.name = movie.getName();
         this.release_year = movie.getRelease_year();
         this.director = movie.getDirector();
-
     }
 
     public MovieDTO() {

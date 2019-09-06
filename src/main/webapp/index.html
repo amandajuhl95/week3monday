@@ -1,10 +1,33 @@
 <!DOCTYPE html>
+
 <html>
     <head>
-        <title>Start Page</title>
+        <title>Movie Theatre</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     </head>
     <body>
-        <h1>Change or remove this page</h1>
-    </body>
+    <center>
+        <h1>Welcome to my Movie Theatre</h1>
+        <input id="movie" placeholder="enter id or name">
+        <button id="getMovie">Get movie</button>
+        <button id="getMovies">Get all</button>
+        <button id="btncount">Count</button>
+        <br><br>
+        <p id="count"></p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>name</th>
+                    <th>release year</th>
+                    <th>director</th>
+                </tr>
+            </thead>
+            <tbody id="tablebody">
+            </tbody>
+        </table>
+        <script src="movieJS.js"></script>
+    </center>
+</body>
 </html>
