@@ -67,7 +67,7 @@ function fetchAll()
 
                 var movieList = data.map(movie => "<tr><td>" + movie.movie_id + "</td><td>"
                             + movie.name + "</td><td>" + movie.release_year + "</td><td>"
-                            + movie.director + "</td><td>");
+                            + movie.director + "</td><td></tr>");
 
                 var movList = movieList.join("\n");
                 document.getElementById("tablebody").innerHTML = movList;
